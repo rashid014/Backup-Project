@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include ('./partials/head') %>
+<body>
+  <%-include ('./partials/user/user-navbar') %>
+ 
+
+
+  <section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+        <div class="col-xl-6 col-lg-8">
+          <h1>We design none less than your 
+            <span>imagination.</span></h1>
+          <h2>Someone Lives in Them</h2>
+        </div>
+      </div>
+
+      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="ri-store-line"></i>
+            <h3><a href="">T-Shirt</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="ri-store-line"></i>
+            <h3><a href="">Jackets</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="ri-store-line"></i>
+            <h3><a href="">Sleeveless</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="ri-store-line"></i>
+            <h3><a href="">Bags</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="ri-store-line"></i>
+            <h3><a href="">Shoes</a></h3>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Hero -->
+ <!-- Start Featured Product -->
+  
+<section class="bg-dark">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+               
+                
+                <h1 style="color: rgb(244, 244, 246);">SWAROin where <span style="color: rgb(1, 1, 203);">Fashion</span> Meets Soul</h1>
+                <br> <br><h1 class="h1" style="color: rgb(216, 139, 38);">Featured Product</h1>
+            </div>
+        </div>
+        
+
+        
+        <div id="product" class="row">
+
+            <% if(products.length >0){ %>
+          <% products.forEach(item=>{  %>
+  
+            <div class="col-12 col-md-4 mb-4">
+                <div class="card h-100 bg-secondary">
+                    <a href="/product/details/<%=item._id %>">
+                        <img src="/<%= item.images[0] %>" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <ul class="list-unstyled d-flex justify-content-between">
+                            <li>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                                <i class="text-muted fa fa-star"></i>
+                            </li>
+                      
+                        </ul>
+                        <a href="/product/details/<%=item._id %>" class="h4 text-decoration-none text-light"><%= item.productname %></a>
+                        <p class="card-text">
+                            <%= item.description %>
+                        </p>
+                        <% if (item.offer>0){ %>
+                            <p class="dress-card-para mt-1"><span class="dress-card-price fs-5"> ₹ <%= Math.round(item.price -( item.price *(item.offer/100))) %>&ensp;</span><span
+                              class="dress-card-crossed mt-1"></span><span class="dress-card-off text-primary">&ensp;(<%= item.offer %>% OFF)</span></p>
+                         <% } else{ %>
+                            <p class="dress-card-para mt-1"><span class="dress-card-price fs-5"> ₹ <%=item.price %>&ensp;</span><span
+                              class="dress-card-crossed mt-1 "></span></p>
+                          <% }%>
+
+                         
+                          <% item.review.forEach(review=>{  %>
+                             <p class="text-muted"><%= review.review%></p>
+                          <% })%>
+                          
+                          
+ 
+                    </div>
+                </div>
+
+            </div>
+            <%   }) %>
+  <%  }  %>
+        </div>
+     
+    </div>
+   
+</section>
+
+
+  <!-- End Featured Product -->
+
+
+
+
+
+
+
+        
+    <%- include ('./partials/bottom-navbar') %>
+    
+</body>
+</html>

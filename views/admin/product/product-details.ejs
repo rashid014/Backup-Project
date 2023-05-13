@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include ('../../partials/head') %>
+
+  <body>
+    <%-include ('../../partials/admin/dash-navbar')%>
+    <br>
+    <h5 class="text-center text-success">PRODUCT MANAGEMENT</h5>
+  <br>
+
+      <a href="/admin/products/addproducts"><button class=" btn btn-secondary btn-lg w-20 boder-2 m-3">ADD
+          PRODUCT</button></a>
+
+          <section class="container">
+            <div class="row">
+              <div class="col-12 table-responsive">
+                <table class="table table-striped" id="datatable">
+                  <thead>
+                    <tr>
+                      <th class="fs-6">NO</th>
+                      <th class="fs-6">Name</th>
+                      <th class="fs-6">Price</th>
+                      <th class="fs-6">Category</th>
+                      <th class="fs-6">Colour</th>
+                      <th class="fs-6">Size</th>
+                      <th class="fs-6">Stock</th>
+                      <!-- <th class="fs-6">Description</th> -->
+                      <th class="fs-6">Images</th>
+                      <th class="fs-6">Update</th>
+                      <th class="fs-6">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(products.length > 0) { %>
+                      <% var count = 1; %>
+                      <% products.forEach(item => { %>
+                        <tr>
+                          <td><%= count++ %></td>
+                          <td><%= item.productname %></td>
+                          <td><%= item.price %></td>
+                          <td><%= item.categoryId?.categoryname %></td>
+                          <td><%= item.color %></td>
+                          <td><%= item.size %></td>
+                          <td><%= item.totalStoke %></td>
+                          <!-- <td><%= item.description %></td> -->
+                          <td><img class="image" style="width: 20%; height: 20%;" src="/<%= item.images[0] %>" alt=""></td>
+                          <td><a href="/admin/products/editproducts/<%=item._id %>"><button class="btn btn-warning border-2 w-100 fw-bold">EDIT</button></a></td>
+                          <td><button class="btn btn-danger border-2 fw-bold" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%=count %>">Delete</button></td>
+                        </tr>
+                        <div class="modal fade" id="staticBackdrop<%=count%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Product</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                It will be removed !!!
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                                <button type="button" class="btn btn-danger" id="delete<%= count %>" onclick="deleteProduct(this.id)" data-url="<%= item._id %>">Delete</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% }) %>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          
+          
+    
+   <br>
+     
+    <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+      <div class="container">
+          <div class="row">
+
+              <div class="col-md-4 pt-5">
+                  <h2 class="h2 text-success border-bottom pb-3 border-light logo">SWAROin</h2>
+                  <ul class="list-unstyled text-light footer-link-list">
+                      <li>
+                          <i class="fas fa-map-marker-alt fa-fw"></i>
+                          ADMIN PANEL
+                      </li>
+                     
+                      <li>
+                        <i class="fas fa-map-marker-alt fa-fw"></i>
+                        If you notice any issues with the help center or content, please contact support@SWAROin.com
+                    </li>
+                  </ul>
+              </div>
+
+
+              
+    <div class="w-100 bg-black py-3">
+      <div class="container">
+          <div class="row pt-2">
+              <div class="col-12">
+                  <p class="text-left text-light">
+                      Copyright &copy; 2021 Company Name 
+                      | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+       
+  </footer>
+       <script src="/script/scriptadmin.js"></script>
+  </body>
+
+</html>
