@@ -3,6 +3,7 @@ const Adminregister = require('../../server/models/admin')
 const Category = require('../../server/models/category')
 const Products = require('../../server/models/products')
 const User = require('../../server/models/user')
+const {upload} = require('../../util/multer')
 
 
 

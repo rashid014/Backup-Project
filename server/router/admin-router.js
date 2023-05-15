@@ -5,8 +5,7 @@ const router = express.Router()
 const adminControls =require('../../server/controller/admin-controller')
 const { notLogged } = require('../../server/middleware/adminsession')
 const session = require('../../server/middleware/adminsession')
-
-
+const {upload}= require('../../util/multer')
 
 
 
@@ -19,14 +18,9 @@ router.get('/categories',session.isLogged, adminControls.getCategories)
 router.get('/users',session.isLogged, adminControls.getUsers)
 
 
-
-
-
-
 router.put('/userdata/:id', adminControls.blockUser)
 
 router.patch('/categories/:id',session.isLogged, adminControls.deleteCategory )
-
 
 
 
@@ -39,13 +33,13 @@ router.get('/products/addproducts',session.isLogged, adminControls.getAddproduct
 
 router.get('/products/editproducts/:id',session.isLogged, adminControls.getEditproducts)
 
+router.post('/products/addproducts',session.isLogged, upload.fields([{ name:'image',maxCount:1}, {name:'image2',maxCount:1},{name:'image3',maxCount:1}]),adminControls.addProducts)
 
+router.post('/products/editproducts/:id',session.isLogged, upload.fields([{ name:'image',maxCount:1}, {name:'image2',maxCount:1},{name:'image3',maxCount:1}]),adminControls.editProduct)
 
 router.get('/logout',adminControls.getAdminlogout)
 
 router.get('/dashhome',session.isLogged, adminControls.getAdminhome)
-
-
 
 
 

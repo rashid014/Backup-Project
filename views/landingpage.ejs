@@ -129,7 +129,7 @@
                 <h1 style="color: azure;">We design none less than your imagination.
 3                  <span style="color: blue;">Remembered</span></h1><br>
           
-          <h3 style="color: rgb(165, 168, 26);">SWAROin where Fashion meets Soul</h3>
+          <h3 style="color: rgb(165, 168, 26);">Rastyles We fulfil your dreams</h3>
             </div>
         </div>
 
@@ -140,20 +140,20 @@
             <% if(products.length >0){ %>
           <% products.forEach(item=>{  %>
   
-            <div class="col-12 col-md-4 mb-4 ">
+            <div class="col-12 col-sm-6 col-md-3 mb-4">
                 <div class="card h-100 bg-secondary">
                     <a href="/product/details/<%=item._id %>">
                         <img src="/<%= item.images[0] %>" class="card-img-top" alt="...">
                     </a>
                     <div class="card-body">
                         <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
+                            <!-- <li>
                                 <i class="text-warning fa fa-star"></i>
                                 <i class="text-warning fa fa-star"></i>
                                 <i class="text-warning fa fa-star"></i>
                                 <i class="text-muted fa fa-star"></i>
                                 <i class="text-muted fa fa-star"></i>
-                            </li>
+                            </li> -->
                             <!-- <li class="text-muted text-right">$240.00</li> -->
                         </ul>
                         <a href="/product/details/<%=item._id %>" class="h4 text-decoration-none text-light"><%= item.productname %></a>
