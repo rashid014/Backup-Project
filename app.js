@@ -1,6 +1,7 @@
 const express = require('express')
 const userrouter = require('./server/router/user-router')
 const adminrouter = require('./server/router/admin-router')
+const forgetPass = require('./server/router/forgotPassword')
 const db = require('./server/database/db')
 const session = require('express-session')
 const path = require('path')
@@ -46,5 +47,6 @@ app.use(session({
 
 app.use('/admin', adminrouter)
 app.use('/', userrouter)
+app.use('/forgot', forgetPass)
 
 app.listen(3000, () => { console.log("server running at port 3000") })

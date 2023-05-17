@@ -1,5 +1,5 @@
 const sms = require('../../util/twilio');
-const User = require('../../server/models/user')
+const User = require('../../server/models/user');
 const bcrypt = require("bcrypt");
 
 
@@ -20,7 +20,7 @@ const loadVeriftyForgotPassword = async (req, res) => {
     const userDetails = await User.findOne({ mobile: mobile })
     if (userDetails) {
         try {
-            newOtp = sms.sendMessage(mobile, res);
+            newOtp = sms.sentotp(mobile, res);
             console.log(newOtp);
             res.render("forgetPasswordVOtp", { mobile: mobile, newOtp: newOtp })
         } catch (error) {
@@ -43,6 +43,7 @@ const resendOtp = async (req, res) => {
 
 const verifyOtp = async (req, res) => {
     try {
+        console.log();
         const newOtp = await req.body.newOtp;
         const enteredOtp = await req.body.eotp;
         if (enteredOtp == newOtp) {

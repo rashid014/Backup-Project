@@ -3,10 +3,8 @@ const express = require ('express')
 const { LogContext } = require('twilio/lib/rest/serverless/v1/service/environment/log')
 const router = express.Router()
 const adminControls =require('../../server/controller/admin-controller')
-const { notLogged } = require('../../server/middleware/adminsession')
 const session = require('../../server/middleware/adminsession')
 const {upload}= require('../../util/multer')
-
 
 
 router.get('/',session.notLogged, adminControls.getAdminlogin)

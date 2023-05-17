@@ -203,6 +203,7 @@ h6 {
 */
 .navbar {
   padding: 0;
+ 
 }
 
 .navbar ul {
@@ -211,6 +212,7 @@ h6 {
   display: flex;
   list-style: none;
   align-items: center;
+  
 }
 
 .navbar li {
@@ -423,7 +425,7 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url(../imgs/banner-bg.png) top center;
+  background: url(../imgs/young.jpg) top center;
   background-size: cover;
   position: relative;
 }

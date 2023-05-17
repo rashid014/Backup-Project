@@ -3,7 +3,7 @@ const Adminregister = require('../../server/models/admin')
 const Category = require('../../server/models/category')
 const Products = require('../../server/models/products')
 const User = require('../../server/models/user')
-const {upload} = require('../../util/multer')
+const { upload } = require('../../util/multer')
 
 
 
@@ -26,7 +26,7 @@ module.exports = {
     getAdminhome: (req, res) => {
         return res.render('admin/home-dashboard')
     },
-    
+
     redirectAdminhome: async (req, res) => {
         const admin = await Adminregister.find({ adminname: req.body.adminname })
         if (admin.length != 0) {
@@ -75,7 +75,7 @@ module.exports = {
     getUsers: async (req, res) => {
         try {
             const register = await User.find()
-            return res.render('admin/user/userdata', { register })
+            return res.render('admin/userdata', { register })
         }
         catch (err) {
             console.log(err)
@@ -139,26 +139,26 @@ module.exports = {
     },
 
     getProducts: async (req, res) => {
-        try{
-            const products =await Products.find({isDeleted:false}).populate('categoryId')
-            return res.render('admin/product/product-details',{products})
+        try {
+            const products = await Products.find({ isDeleted: false }).populate('categoryId')
+            return res.render('admin/product/product-details', { products })
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
-        
+
     },
     getAddproducts: async (req, res) => {
         const category = await Category.find({ isDeleted: false })
         return res.render('admin/product/product-add', { category })
     },
-    getEditproducts:async(req,res)=>{
-        const category=  await Category.find()
+    getEditproducts: async (req, res) => {
+        const category = await Category.find()
         const products = await Products.findById(req.params.id)
-        
-        return res.render('admin/product/product-edit',{category,products})
+
+        return res.render('admin/product/product-edit', { category, products })
     },
-    
+
 
 
     addCategory: async (req, res) => {
@@ -167,7 +167,7 @@ module.exports = {
             const storecategory = new Category({
                 categoryname: req.body.category.toUpperCase()
             })
-            const category = await Category.find({ categoryname: categoryname,isDeleted:false })
+            const category = await Category.find({ categoryname: categoryname, isDeleted: false })
             if (category.length == 0) {
                 try {
                     await storecategory.save()
@@ -210,8 +210,8 @@ module.exports = {
 
     addProducts: async (req, res) => {
         try {
-            const images =[];
-            for(key in req.files){
+            const images = [];
+            for (key in req.files) {
                 const paths = req.files[key][0].path
                 images.push(paths.slice(7))
             }
@@ -220,12 +220,12 @@ module.exports = {
                 color: req.body.colour,
                 size: req.body.size,
                 price: req.body.price,
-                offer :req.body.offer,
+                offer: req.body.offer,
                 description: req.body.description,
                 totalStoke: req.body.totalstoke,
 
                 categoryId: req.body.categoryId,
-                images : images
+                images: images
             })
             try {
                 await storeproducts.save()
@@ -243,60 +243,60 @@ module.exports = {
 
 
 
-    deleteProduct: async(req,res)=>{
-        try{
-          const id =  req.params.id
-         await Products.findOneAndUpdate({_id : id},{
-            $set: {
-                isDeleted:true
-            }
-         })
-         return res.json ({
-            successStatus :true,
-            redirect :'/admin/products'
-         })
-         }
-        catch(err){
+    deleteProduct: async (req, res) => {
+        try {
+            const id = req.params.id
+            await Products.findOneAndUpdate({ _id: id }, {
+                $set: {
+                    isDeleted: true
+                }
+            })
+            return res.json({
+                successStatus: true,
+                redirect: '/admin/products'
+            })
+        }
+        catch (err) {
             console.log(err);
         }
     },
 
 
 
-    editProduct: async(req,res)=>{
+    editProduct: async (req, res) => {
 
-        try{
-        const  id = req.params.id
-        const product = await Products.findById(id)
-        const images = product.images
-        if(req.files.image){
-            const paths =req.files.image[0].path
-            images.splice(0,1,paths.slice(7))
+        try {
+            const id = req.params.id
+            const product = await Products.findById(id)
+            const images = product.images
+            if (req.files.image) {
+                const paths = req.files.image[0].path
+                images.splice(0, 1, paths.slice(7))
+            }
+            if (req.files.image2) {
+                const paths = req.files.image2[0].path
+                images.splice(1, 1, paths.slice(7))
+            }
+            if (req.files.image3) {
+                const paths = req.files.image3[0].path
+                images.splice(2, 1, paths.slice(7))
+            }
+
+            // const images =[];
+            //     for(key in req.files){
+            //         const paths = req.files[key][0].path
+
+            //         images.push(paths.slice(7))
+            //     }
+            console.log(id);
+            console.log(req.body)
+            const updatedProduct = await Products.findByIdAndUpdate({ _id: id }, req.body)
+            await Products.findByIdAndUpdate({ _id: id }, {
+                images: images
+            })
+            return res.redirect('/admin/products')
         }
-        if(req.files.image2){
-            const paths =  req.files.image2[0].path
-            images.splice(1,1,paths.slice(7))
-        }
-        if(req.files.image3){
-            const paths = req.files.image3[0].path
-            images.splice(2,1,paths.slice(7))
-        }
-        
-        // const images =[];
-        //     for(key in req.files){
-        //         const paths = req.files[key][0].path
-                
-        //         images.push(paths.slice(7))
-        //     }
-        console.log(id);
-        console.log(req.body)
-        const updatedProduct = await Products.findByIdAndUpdate({_id: id }, req.body)
-        await Products.findByIdAndUpdate({_id : id},{
-            images :images
-        })
-         return res.redirect('/admin/products')
-        }
-        catch(err){
+        catch (err) {
             console.log(err);
         }
     },

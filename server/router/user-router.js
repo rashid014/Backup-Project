@@ -1,12 +1,11 @@
 const express = require ('express')
-const router = express.Router()
+const router = express()
 const userControls=require('../../server/controller/user-controller')
 const session = require('../../server/middleware/usersession')
-
-
 const adminController = require('../../server/controller/admin-controller')
 const { isLogged, notLogged } = require('../../server/middleware/usersession')
 
+router.set('views','./views/user')
 
 
 
@@ -33,6 +32,8 @@ router.get('/logout',userControls.getUserlogout)
 router.post('/register',session.notLogged, userControls.saveUser)
 router.post('/otp',session.notLogged, userControls.addUser)
 router.post('/login', userControls.redirectHomepage)
+router.post('/login',session.notLogged, userControls.saveUser)
+router.post('/otp',session.notLogged, userControls.addUser)
 
 
 
