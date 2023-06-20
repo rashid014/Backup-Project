@@ -1,143 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<%-include('../partials/head') %>
-
-  <body>
-    <%-include ('../partials/admin/dash-navbar') %>
-
-    <br>
-    <h5 class="text-center text-success">CATEGORY MANAGEMENT</h5>
-<br>
-
-      <section class="container">
-        <div class="row">
-          <div class="col-12 table-responsive">
-            <table class="table" id="datatable">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Category Name</th>
-                  <th scope="col">Update</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <% if(category.length>0){ %>
-                  <% var count=1 %>
-                    <% category.forEach(items=> { %>
-
-                      <tr>
-                        <th scope="row">
-                          <%= count++ %>
-                        </th>
-                        <td class="fw-bold">
-                          <%= items.categoryname %>
-                        </td>
-                        <td>
-                          <div>
-                            <button class="btn btn-danger fw-bold" data-bs-toggle="modal"
-                              data-bs-target="#staticBackdrop<%= count %>">Delete</button>
+<%- include ('../layouts/adminHeader.ejs') %>
+<style>
+  body{
+    
+  }
+</style>
 
 
-                          <div class="modal fade" id="staticBackdrop<%= count %>" data-bs-backdrop="static"
-                              data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                              aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Category</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                      aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    It will be removed !!!
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
-                                    <button type="button" class="btn btn-outline-danger" id="delete<%= count %>"
-                                      onclick="deleteCategory(this.id)" data-url="<%= items._id %>">Delete</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <% }) %>
-                        <% } %>
-              </tbody>
-            </table>
+    <h4 class="text-center text-dark my-5">CATEGORIES</h4>
+    <a href="/admin/addCategories"><button type="button" class="btn btn-primary mx-3">+ Add Categories</button></a>
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th scope="col">SL NO</th>
+          <th scope="col">CATEGORY NAME</th>
+          <th scope="col">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% for(i=1;i<=category.length;i++){ %>
+          <tr>
+            <td>
+              <%=i%>
+            </td>
+            <td><%=category[i-1].name%></td>
+            <td>
+              <a href="/admin/edit-category?id=<%- category[i-1]._id %>"><button type="button"
+                  class="btn btn-success">edit</button></a>
+              <!-- <button class="btn  btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter"
+                    onclick="del('<%- category[i-1]._id %>')"></button> -->
+              <a id="<%-category[i-1]._id %>" style="text-decoration: none; color: #d15858;"
+                href="/admin/delete-category?id=<%- category[i-1]._id %>">
+                <% if(category[i-1].is_available){ %>Unlist<%}else{%>list<%}%>
+              </a>
+            </td>
+          </tr>
+          <%}%>
+      </tbody>
+    </table>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure want to delete ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="save()">delete</button>
           </div>
         </div>
-
-        <div>
-          <form action="/admin/categories/add" method="POST">
-            <h6 class="form-label">ADD NEW CATEGORIES</h6>
-            <span class="text-danger fw-bold">
-              <%= message %>
-            </span>
-            <div class=" ">
-              <input class="form-control form-control-lg  " type="text" name="category" id="category"
-                placeholder="New Category"></input>
-              <button class="btn btn-outline-secondary btn-lg mt-3 mb-3 " type="submit"> ADD CATEGORY</button>
-            </div>
-          </form>
-
-        </div>
-
-
-
-      </section>
-
-
-      
-    <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 pt-5">
-                    <h5 class="h2 text-success border-bottom pb-3 border-light logo">RASTYLES</h5>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw"></i>
-                            ADMIN PANEL
-                        </li>
-                       
-                        <li>
-                          <i class="fas fa-map-marker-alt fa-fw"></i>
-                          If you notice any issues with the help center or content, please contact support@Rastyles.com
-                      </li>
-                    </ul>
-                </div>
-
-
-                
-      <div class="w-100 bg-black py-3">
-        <div class="container">
-            <div class="row pt-2">
-                <div class="col-12">
-                    <p class="text-left text-light">
-                        Copyright &copy; 2023 swaroin
-                        | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">RASTYLES</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 
-         
-    </footer>
-    <!-- End Footer -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"></script>
 
-    <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <!-- End Script -->
-        <script src="/script/scriptadmin.js"></script>
-  </body>
 
-</html>
+    <%- include ('../layouts/adminFooter.ejs') %>

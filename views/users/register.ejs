@@ -1,0 +1,70 @@
+<%- include('../layouts/header.ejs') %>
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap mt-5">
+		<div class="container-fluid mt-5">
+			<div class="row">
+				<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+					<div class="">
+						<img class="img-fluid" src="assets/img/signupic.jpg"  width="400px"  alt="">
+					</div>
+				
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Sign-Up</h3>
+						<% if(typeof message !=='undefined' ) { %>
+							<p class="fs-4 text-success">
+							  <span style="color: rgb(230, 8, 8);">
+								<%=message %>
+							  </span>
+							</p>
+							<% } %>
+			
+							  
+						<form class="row login_form" action="/register" method="post" id="contactForm" onsubmit="return validate()">
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="name" placeholder="UserName" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'" onchange="nameValidate()">
+								<span id="Name"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" onchange="emailValidate()"> 
+								<span id="Email"></span>
+							</div>
+              <div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="number" name="mno" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phonenumber'" onchange="numberValidate()">
+								<span id="Number"></span>
+							</div>
+              <div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" onchange="passwordValidate()">
+								<span id="Password"></span>
+							</div>
+              <div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm-Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm-Password'" onchange="passwordValidate2()">
+								<span id="Password2"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									
+									
+								</div>
+							</div>
+							<div style="display: flex; justify-content: space-around;">
+								<button class=" btn btn-block back_but" style="background-color:rgb(248, 154, 13); width: autoz; height: 40px; "><a href="/home"
+									class="text-dark text-decoration-none"> Back</a></button>
+		  
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn" onclick="nameValidate() , emailValidate(), numberValidate(), passwordValidate(), passwordValidate2()">Sign Up</button>
+								
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+
+
+  <script src="validation.js"></script>
+
+  <%- include ('../layouts/footer.ejs') %>

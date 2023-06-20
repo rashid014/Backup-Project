@@ -1,0 +1,55 @@
+<%- include('../layouts/header.ejs') %>
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap mt-5">
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+        <div class="">
+          <img class="img-fluid" src="assets/img/loginpic.jpg" width="400px" alt="">
+          <br><br>
+        </div>
+        <a class="primary-btn text-center" href="/register" style="width:60%">Create an Account</a>
+      </div>
+      <div class="col-lg-6">
+        <div class="login_form_inner">
+          <h3>Log in to enter</h3>
+          <form class="row login_form" action="/login" method="post" id="contactForm" onsubmit="return allChecking()">
+            <div class="col-md-12 form-group">
+              <input type="text" class="form-control" id="email" name="email" onchange="emailValidate()" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+              <span id="Email"></span>
+            </div>
+            <div class="col-md-12 form-group">
+              <input type="password" class="form-control" id="password" name="password" onchange="passwordValidate()" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+              <span id="Password"></span>
+            </div>
+            <div class="col-md-12 form-group">
+              <div class="creat_account">
+                <input type="checkbox" id="f-option2" name="selector">
+                <label for="f-option2">Keep me logged in</label>
+              </div>
+            </div>
+            <div class="col-md-12 form-group">
+              <button type="submit" value="submit" class="primary-btn"  onclick="emailValidate(),passwordValidate()">Log In</button>
+              <a href="/forgot/forgot-p">Forgot Password?</a>
+            </div>
+            <div class="">
+              <% if(typeof message !=='undefined' ){ %>
+                <span class="fs-4">
+                  <span style="color: red;">
+                    <%=message %>
+                  </span>
+                </span>
+                <% } %>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================End Login Box Area =================-->
+
+<script src="validation.js"></script>
+
+<%- include ('../layouts/footer.ejs') %>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Offer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Create Offer</h1>
+
+    <form action="/offers" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" placeholder="Enter description" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="startDate" class="form-label">Start Date</label>
+        <input type="date" class="form-control" id="startDate" name="startDate" required>
+      </div>
+      <div class="mb-3">
+        <label for="endDate" class="form-label">End Date</label>
+        <input type="date" class="form-control" id="endDate" name="endDate" required>
+      </div>
+      <div class="mb-3">
+        <label for="categoryId" class="form-label">Category</label>
+        <select class="form-control" id="categoryId" name="categoryId" required>
+          <option value="">Select a category</option>
+          <!-- Render the categories dynamically from server-side -->
+          <% categories.forEach(category => { %>
+            <option value="<%= category._id %>"><%= category.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" id="isReferralOffer" name="isReferralOffer">
+        <label class="form-check-label" for="isReferralOffer">Referral Offer</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Create Offer</button>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
