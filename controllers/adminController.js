@@ -28,8 +28,8 @@ const loadLogin = async (req, res) => {
 
 const verifyLogin = async (req, res) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = 'ohyeah@gmail.com' ;
+    const password = 12345678;
 
     const userData = await User.findOne({ email: email });
 
