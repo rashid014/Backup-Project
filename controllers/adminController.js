@@ -28,8 +28,8 @@ const loadLogin = async (req, res) => {
 
 const verifyLogin = async (req, res) => {
   try {
-    const email = 'ohyeah@gmail.com' ;
-    const password = 12345678;
+    const email = req.body.email;
+    const password = req.body.password;
 
     const userData = await User.findOne({ email: email });
 
@@ -38,7 +38,7 @@ const verifyLogin = async (req, res) => {
 
       if (passwordMatch) {
         if (userData.is_admin === 0) {
-          res.render("adminLogin", { message: "email and password incorrect" });
+          res.render("adminlogin", { message: "email and password incorrect" });
         } else {
           req.session.admin_id = userData._id;
           res.redirect("/admin/home");
